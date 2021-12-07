@@ -1,0 +1,60 @@
+I can create a VPC on mutliple regions.{FALSE}
+
+I interconnect 2 VPCs using... {
+=Route tables in each VPC target a VPC peering.
+=EC2 instances running VPN software. Those instances must be the default route for the VPC.
+=A transit Gateway attached to my VPCs. Route tables of the VPCs and Transit Gateway must contain the correct rules.
+}
+
+With Transit Gateway I can interconnect easily many VPC because...{
+  =I can centrally manage the routing
+  ~I can interconnect VPCs with overlapping CIDRs
+  ~AWS is magical
+}
+
+A subnet is created inside an availability zone. If I want HA...{
+  ~I specify a parameter `HA` during the subnet creation.
+ =I must create several subnets. Each in different availability zones
+ =I must create several subnets. At least in 2 availability zones
+}
+
+// public accessebility
+Match the following use case with the best setup. {
+  =I need to guarantee instances in my VPC will not access Internet -> no internet gateway
+  =I need to guarantee private instances in my VPC will not be accessed from Internet  -> instances are in private subnet (without public IP). An Internet gateway is a target for default route in the public route tables. A nat gateway is a target for the default route in the private route table.
+  =I need to guarantee private instances in my VPC will not be accessed from Internet AND will not access Internet -> instances are in private subnet (without public IP). An Internet gateway is a target for default route in the public route tables.
+}
+
+// DX and VPN
+I can backup a Direct Connect with a VPN connection?{TRUE}
+
+Direct connect is preferred to VPN because latency and bandwith are more stable compared to the performance of a VPN?{TRUE}
+
+// ENI is
+An Elastic Network Interface is...{
+  ~An IPV4 private address I can attach to different subnets
+  ~An IPV4 private address with changing MAC address
+  =An IPV4 private address I can attach/detach to/of non-primay interfaces of EC2 instances
+  =An IPV4 private address created inside a subnet
+}
+
+// SG and ACL
+Security groups and Network ACL are 2 mechanisms to secure à VPC?{TRUE}
+
+Which assertion is false?{
+  =NACL are stafull and security groups
+  ~Security groups are firewall configuration at ENI level
+  ~NACL are firewall configuration at subnet level
+}
+// VPC endpoints
+A VPC endpoints is usefull to avoid using Internet Connectivity to join AWS services from instances inside a VPC?{TRUE}
+
+A VPC endpoints is usefull to call a service endpoint created in another AWS VPC inside another AWS account?{TRUE}
+
+// ELB types
+Match the following use description with each type of load balancer. {
+  =Application Load Balancer can -> perform HTTP/HTTPS traffic inspection to route to specific targets
+  =Network Load Balancer can -> handle millions of requests per second with a single IP per availability zone
+  =Classic Load Balancer can -> perform HTTP/HTTPS traffic inspection and also TCP, but should be avoid
+}
+
